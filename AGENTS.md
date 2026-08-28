@@ -78,6 +78,51 @@ context or session limits, and it drifts as it goes. The harness splits the work
 Step three is the one agents get wrong. Reading your worker's diff and declaring
 it correct is self-review with extra steps. Run the thing.
 
+## Delegate by default
+
+The main session is an orchestrator, not a laborer. It plans, it verifies, and it
+does the small things that are cheaper to do than to hand off. Everything
+substantial, the reading, building, refactoring, and auditing, goes to a fresh
+worker with its own context. This is not about speed. A single session that does
+all the work fills its own context with the work's debris and reasons worse for
+it. A worker returns a result; its scratch reasoning dies with it. When in doubt
+whether a task is worth delegating, delegate it. Keep only the conversational
+replies and the trivial edits in the main session.
+
+## Route work by tier, not by name
+
+Think in three roles, not in model brands. A strong reasoner for architecture,
+ambiguous requirements, and any call that carries real judgment. A cheap bulk
+worker for mechanical sweeps and large reads where the answer is legwork, not
+thought. A judge seat for final verification and adversarial review, where being
+wrong is expensive. Pick the cheapest tier that can do the job without losing
+quality, and no cheaper. The one hard error is letting the weakest model make a
+judgment call: a cheap model deciding a hard question, or gating a route, is worse
+than no router at all. A static routing policy beats a cheap model deciding the
+route on every turn, and it also spares the prompt cache, which a per-turn model
+swap invalidates. Map the tiers onto whatever your harness offers: a stronger
+model override for architecture and ambiguity, a mid one for scoped
+implementation and review, the cheapest only for mechanical microtasks with no
+judgment in them.
+
+## Keep sensitive work on your own seat
+
+Anything private, personal data, customer or candidate records, medical
+information, secrets, never leaves for a third-party model or rail you do not
+control. It stays on the seat you trust, even when a cheaper tier could handle the
+mechanics. This rule wins over cost and over convenience. A leak is not a bug you
+fix later.
+
+## When a rail fails
+
+Delegation depends on infrastructure, and infrastructure falls over. When a worker
+rail is unreachable or errors out, say so in one line, name the fallback, and take
+it. One attempt per rail, then move; a retry loop just burns turns on a dead path.
+Have the fallback order decided in advance so the choice is not improvised under
+load, and let the native session model be the last resort, never the first. The
+sensitive-seat rule holds through every fallback: a broken rail is never a reason
+to force private work onto a model that should not see it.
+
 ## Verify by running
 
 "Done" requires a tool call that proves it. A deploy is proven by fetching the
