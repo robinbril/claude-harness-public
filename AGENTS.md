@@ -105,6 +105,33 @@ model override for architecture and ambiguity, a mid one for scoped
 implementation and review, the cheapest only for mechanical microtasks with no
 judgment in them.
 
+## Routing with nothing but Claude Code
+
+None of the above needs a custom bridge, a router, or a second service. The
+mechanism is already in the harness: a subagent with a model override. The main
+session is your driver model. A dispatched worker is a subagent spawned with a
+stronger, cheaper, or simply different model than the one you are running, and
+that single dial is the whole routing layer.
+
+Map the three roles onto the models your seat offers:
+
+- Strong reasoner: the top model, for architecture, ambiguous requirements, and
+  planning a build. Spawn it to write the frozen contracts before any worker
+  starts.
+- Scoped worker: a mid model, for a unit of work with the contract already
+  decided. This is where most execution lives.
+- Mechanical: the cheapest model, for legwork with no judgment in it, and never
+  for anything that decides.
+
+The adversary in `ROUTE` is the same move with a twist: spawn it on any model that
+is not your driver, so the second opinion is genuinely independent and not the
+author grading its own plan. Keeping one capable model in reserve purely for this,
+distinct from your everyday driver, is worth it precisely because independent
+judgment is where a route pays off. If you want that adversary to accumulate
+context across sessions rather than start cold each time, keep it as a persistent
+subagent and resume it; an adversary with memory of your past arguments is worth
+more than a fresh one. That is the entire setup. No external rail required.
+
 ## Keep sensitive work on your own seat
 
 Anything private, personal data, customer or candidate records, medical
