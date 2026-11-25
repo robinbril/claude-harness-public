@@ -71,7 +71,7 @@ Every hook fails open. An error inside a hook never blocks your work.
 
 ## Skills
 
-The original skills group into four areas.
+The original skills group into five areas.
 
 | Area | Skills |
 | --- | --- |
@@ -79,6 +79,7 @@ The original skills group into four areas.
 | Engineering | `verificatie-voor-klaar`, `frontend-gotchas`, `council`, `skill-finder` |
 | Writing | `humanizer` |
 | Design and animation | `apple-design`, `better-typography`, `better-colors`, `better-ui`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, `animation-vocabulary`, `micro-transitions` |
+| Dashboards | `powerbi` |
 
 The `skills/vendor/` directory holds third-party skills grouped by author. From
 mattpocock: engineering and productivity skills such as `tdd`, `code-review`,

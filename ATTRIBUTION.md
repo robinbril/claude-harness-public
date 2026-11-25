@@ -10,7 +10,7 @@ are one of those authors and want a change, open an issue.
 
 The orchestration and engineering skills (the loop family, supergoal,
 createloopprompt, model-routing, verificatie-voor-klaar, frontend-gotchas,
-council, humanizer, skill-finder) and every hook are original work,
+council, humanizer, skill-finder, powerbi) and every hook are original work,
 Copyright (c) 2026 Robin Bril, MIT-licensed.
 
 ## Matt Pocock
