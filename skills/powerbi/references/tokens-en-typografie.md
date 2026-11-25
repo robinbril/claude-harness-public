@@ -77,9 +77,9 @@ Buren (standaard-paarlijst): CVD worst #118DFF↔#3B4FD8 ΔE 12.2 (deutan), PASS
 
 Gevolgen:
 - Licht: alles door op #ffffff.
-- Donker: indigo haalt op #16141f en #161c2b geen 3:1 (validator); op de Fluent-donkerstand (#1F1F1F, #292929) halen indigo én paars geen 3:1 (nagerekend). Regel: **zichtbare labels of een tabelweergave op elke kaart** (de relief-regel). Dit is de enige uitzondering op de 3:1-regel en geldt alleen voor gevulde vlakken in donker. Voor lijnen in donker: gebruik de donkere stappen van de set contrastrijk.
+- Donker: indigo haalt op #16141f en #161c2b geen 3:1 (validator); op de Fluent-donkerstand (#1F1F1F, #292929) halen indigo én paars geen 3:1 (nagerekend). Regel: **zichtbare labels of een tabelweergave op elke kaart** (de relief-regel). Dit is de enige uitzondering op de 3:1-regel en geldt alleen voor gevulde vlakken in donker. Lijnen in donker krijgen een lichtere stap van dezelfde tint die 3:1 haalt: bijvoorbeeld indigo #7A8BFF (4,82 op #292929) en paars #C77DDB (5,12), daarna de validator opnieuw.
 - Het zwakste paar is indigo met paars (ΔE 6,4 protan): kosten en netto. Die staan alleen samen in de resultaatbrug, waar elke staaf naam en bedrag draagt. Nergens naast elkaar zonder labels.
-- Een nieuwe set of een nieuw oppervlak: validator opnieuw, licht en donker, uitvoer in de kopcomment. Alternatieve sets die zonder WARN slagen: contrastrijk (licht #2063b0 #a87600 #176325 #c51f5d, donker #4682cc #bb881a #047745 #cd4787) en ingetogen (licht #505ba7 #aa7d25 #1e6321 #c467a4, donker #6673c1 #b48630 #297623 #c24976), volgorde marge, kosten, omzet, netto.
+- Een nieuwe set of een nieuw oppervlak: validator opnieuw, licht en donker, uitvoer in de kopcomment. Alternatieve sets die zonder WARN slagen op #ffffff, #16141f en #161c2b (hun donkergroen haalt op #1F1F1F en #292929 geen 3:1): contrastrijk (licht #2063b0 #a87600 #176325 #c51f5d, donker #4682cc #bb881a #047745 #cd4787) en ingetogen (licht #505ba7 #aa7d25 #1e6321 #c467a4, donker #6673c1 #b48630 #297623 #c24976), volgorde marge, kosten, omzet, netto.
 
 ## 4. Statuskleuren, afwijkingen en scenario's
 
@@ -158,24 +158,9 @@ Voor een nieuw project zonder eigen designsysteem. Herkomst per waarde in de sec
   --scenario-ac: #D6D6D6; --scenario-py: #7A7A7A; --scenario-pl: #D6D6D6; --scenario-fc: #D6D6D6;
   /* reeksen gelijk aan licht; indigo en paars onder 3:1: labels of tabelweergave verplicht */
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --wallpaper: #141414; --page: #1F1F1F; --card: #292929;
-    --surface-hover: #3D3D3D; --surface-muted: #333333;
-    --text-1: #FFFFFF; --text-2: #D6D6D6; --text-3: #ADADAD; --text-4: #999999; --text-disabled: #5C5C5C;
-    --stroke-1: #666666; --stroke-2: #525252; --stroke-3: #3D3D3D; --stroke-card: #3D3D3D; --stroke-accessible: #ADADAD;
-    --accent: var(--brand-dark, #479EF5);
-    --status-success-fg: #9FD89F; --status-warning-fg: #FDCFB4; --status-danger-fg: #EEACB2;
-    --status-success-bg: rgba(16, 124, 16, 0.35); --status-warning-bg: rgba(188, 75, 9, 0.35); --status-danger-bg: rgba(197, 15, 31, 0.35);
-    --variance-good: #9FD89F; --variance-bad: #EEACB2; --variance-neutral: #999999;
-    --scenario-ac: #D6D6D6; --scenario-py: #7A7A7A; --scenario-pl: #D6D6D6; --scenario-fc: #D6D6D6;
-    /* reeksen gelijk aan licht; indigo en paars onder 3:1: labels of tabelweergave verplicht */
-  }
-}
 ```
 
-De app zet `data-theme` (`light` of `dark`) op `<html>`; zonder attribuut volgt de pagina het systeem. Gebruik hetzelfde attribuut in scoped CSS.
+De app zet bij het laden altijd `data-theme` (`light` of `dark`) op `<html>`, ook als de gebruiker het systeem volgt (lees `matchMedia('(prefers-color-scheme: dark)')` en luister naar wijzigingen). Tokens, scoped CSS en ECharts gebruiken alleen dit attribuut.
 
 ECharts leest geen CSS-variabelen: los ze op via het proefelement (`echarts-vue-implementatie.md`, sectie 4) en bouw de optie opnieuw bij een themawissel.
 
